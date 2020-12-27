@@ -112,6 +112,7 @@ public class DOMParser3 {
 			}
 		}
 		//System.out.println(melodiiCautate);
+		
 	}
 
 	private void addGenersWanted(NodeList genresList) {
