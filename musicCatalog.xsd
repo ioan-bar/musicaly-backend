@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/musicCatalog" xmlns:tns="http://www.example.org/musicCatalog" elementFormDefault="qualified">
+
+    <complexType name="catalogType">
+        <annotation>
+        	<documentation>Baza de informatii descrie o platforma de muzica, asadar include informatii referitoare la melodii, cantareti si genuri de muzica, cuprinse in elementul Catalog.</documentation>
+        </annotation>
+        <sequence>
+    		<element name="songs" type="tns:songsType"></element>
+    		<element name="singers" type="tns:singersType"></element>
+    		<element name="genres" type="tns:genresType"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="songsType">
+        <annotation>
+        	<documentation>songs este o colectie de informatii ce descrie lista de melodii.</documentation>
+        </annotation>
+        <sequence>
+    		<element name="song" type="tns:songType" maxOccurs="unbounded"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="singersType">
+        <annotation>
+        	<documentation>singers este o colectie de informatii ce descrie lista de cantareti.</documentation>
+        </annotation>
+        <sequence>
+    		<element name="singer" type="tns:singerType" maxOccurs="unbounded"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="genresType">
+        <annotation>
+        	<documentation>genres este o colectie de informatii ce descrie lista de genuri muzicale.</documentation>
+        </annotation>
+        <sequence>
+    		<element name="genre" type="tns:genreType" maxOccurs="unbounded"></element>
+    	</sequence>
+    </complexType>
+    
+    <element name="catalog" type="tns:catalogType"></element>
+
+    <complexType name="genreType">
+        <annotation>
+        	<documentation>genre reprezinta genul muzical a unei melodii</documentation>
+        </annotation>
+        <simpleContent>
+    		<extension base="string">
+    			<attribute name="id" type="ID"></attribute>
+    		</extension>
+    	</simpleContent>
+    </complexType>
+
+    <complexType name="singerType">
+        <annotation>
+        	<documentation>singer reprezinta cantaretul si este descris prin elementele: name si age.</documentation>
+        </annotation>
+        <sequence>
+    		<element name="name" type="string"></element>
+    		<element name="age" type="int"></element>
+    	</sequence>
+    	<attribute name="id" type="ID"></attribute>
+    </complexType>
+
+    <complexType name="songType">
+        <annotation>
+        	<documentation>song reprezinta melodia si este descrisa prin elementele: title, singer (cu referinta catre tipul singer), year si genre (cu referinta catre tipul genre).</documentation>
+        </annotation>
+        <sequence>
+    		<element name="title" type="string"></element>
+    		<element name="singer" type="tns:singerRefType"></element>
+    		<element name="year" type="int"></element>
+    		<element name="genre" type="tns:genreRefType"></element>
+    	</sequence>
+    	<attribute name="id" type="ID"></attribute>
+    </complexType>
+
+	<complexType name="singerRefType">
+		<attribute name="idref" type="IDREF"></attribute>
+	</complexType>
+
+	<complexType name="genreRefType">
+		<attribute name="idref" type="IDREF"></attribute>
+	</complexType>
+
+    <attribute name="id" type="ID"></attribute>
+	<attribute name="idref" type="IDREF"></attribute>
+
+</schema>

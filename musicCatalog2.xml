@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:catalog xmlns:tns="http://www.example.org/musicCatalog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.example.org/musicCatalog musicCatalog.xsd ">
+    <tns:songs>
+        <tns:song id="song1">
+            <tns:title>Midnight sky</tns:title>
+            <tns:singer idref="s1"></tns:singer>
+            <tns:year>2020</tns:year>
+            <tns:genre idref="pop"></tns:genre>
+        </tns:song>
+        <tns:song id="song2">
+            <tns:title>Nobody but you</tns:title>
+            <tns:singer idref="s2"></tns:singer>
+            <tns:year>2020</tns:year>
+            <tns:genre idref="country"></tns:genre>
+        </tns:song>
+        <tns:song id="song3">
+            <tns:title>Candy Shop</tns:title>
+            <tns:singer idref="s3"></tns:singer>
+            <tns:year>2003</tns:year>
+            <tns:genre idref="hip-hop"></tns:genre>
+        </tns:song>
+        <tns:song id="song4">
+            <tns:title>Party in the USA</tns:title>
+            <tns:singer idref="s1"></tns:singer>
+            <tns:year>2013</tns:year>
+            <tns:genre idref="pop"></tns:genre>
+        </tns:song>
+        <tns:song id="song5">
+            <tns:title>Shape of you</tns:title>
+            <tns:singer idref="s4"></tns:singer>
+            <tns:year>2017</tns:year>
+            <tns:genre idref="pop"></tns:genre>
+        </tns:song>
+        <tns:song id="song6">
+            <tns:title>Hips dont lie</tns:title>
+            <tns:singer idref="s5"></tns:singer>
+            <tns:year>2005</tns:year>
+            <tns:genre idref="latin"></tns:genre>
+        </tns:song>
+        <tns:song id="song7">
+            <tns:title>Lose yourself</tns:title>
+            <tns:singer idref="s6"></tns:singer>
+            <tns:year>2002</tns:year>
+            <tns:genre idref="hip-hop"></tns:genre>
+        </tns:song>
+    </tns:songs>
+    <tns:singers>
+        <tns:singer id="s1">
+            <tns:name>Miley Cyrus</tns:name>
+            <tns:age>27</tns:age>
+        </tns:singer>
+        <tns:singer id="s2">
+            <tns:name>Blake Shelton</tns:name>
+            <tns:age>44</tns:age>
+        </tns:singer>
+        <tns:singer id="s3">
+            <tns:name>50 Cent</tns:name>
+            <tns:age>45</tns:age>
+        </tns:singer>
+        <tns:singer id="s4">
+            <tns:name>Ed Sheeran</tns:name>
+            <tns:age>29</tns:age>
+        </tns:singer>
+        <tns:singer id="s5">
+            <tns:name>Shakira</tns:name>
+            <tns:age>43</tns:age>
+        </tns:singer>
+        <tns:singer id="s6">
+            <tns:name>Eminem</tns:name>
+            <tns:age>48</tns:age>
+        </tns:singer>
+    </tns:singers>
+    <tns:genres>
+        <tns:genre id="pop">Pop</tns:genre>
+        <tns:genre id="country">Country</tns:genre>
+        <tns:genre id="hip-hop">Hip-Hop</tns:genre>
+        <tns:genre id="latin">Latin music</tns:genre>
+    </tns:genres>
+</tns:catalog>
