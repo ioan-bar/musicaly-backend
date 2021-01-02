@@ -38,4 +38,8 @@ public class MusicalyDatabase {
     public List<String> getAllSongsOfGenre(String genre) {
         return XPathParser.getAllSongsOfGenre(genre);
     }
+    public List<Song> getAllSongsOfSinger(String singer) {
+        return XPathParser.getAllSongsOfSinger(singer);
+    }
+
 }

@@ -472,6 +472,56 @@ public static void main(String[] args) {
         return result;
     }
 
+    public static List<Song> getAllSongsOfSinger(String singer){
+        List<Song> result = new ArrayList<>();
+
+        try {
+            XPathExpression expressionSingerId = xpath.compile("//tns:singers/tns:singer[tns:name='"+singer+"']/@id");
+            String singerId = (String) expressionSingerId.evaluate(doc, XPathConstants.STRING);
+            XPathExpression expressionSingerIdRefSongs = xpath.compile("//tns:songs/tns:song[tns:singer[@idref='" + singerId + "']]");
+
+            NodeList songsNodes = (NodeList) expressionSingerIdRefSongs.evaluate(doc, XPathConstants.NODESET);
+
+            for (int i = 0; i < songsNodes.getLength(); i++) {
+                Element songElement = (Element) songsNodes.item(i);
+
+                String songGenreRef = ((Element) songElement.getElementsByTagName("tns:genre").item(0)).getAttribute("idref");
+                XPathExpression genreExpression = xpath.compile("//tns:genres/tns:genre[@id='" + songGenreRef + "']");
+                NodeList genresNodes = (NodeList) genreExpression.evaluate(doc, XPathConstants.NODESET);
+                Element foundedGenre = (Element) genresNodes.item(0);
+
+                String songSingerRef = ((Element) songElement.getElementsByTagName("tns:singer").item(0)).getAttribute("idref");
+                XPathExpression singerExpression = xpath.compile("//tns:singers/tns:singer[@id='" + songSingerRef + "']");
+                NodeList singersNodes = (NodeList) singerExpression.evaluate(doc, XPathConstants.NODESET);
+                Element foundedSingerElement = (Element) singersNodes.item(0);
+
+
+                String songTitle = songElement.getElementsByTagName("tns:title").item(0).getTextContent();
+                String songYear = songElement.getElementsByTagName("tns:year").item(0).getTextContent();
+                String songSingerName = foundedSingerElement.getElementsByTagName("tns:name").item(0).getTextContent();
+                String songSingerAge = foundedSingerElement.getElementsByTagName("tns:age").item(0).getTextContent();
+                String songGenre = foundedGenre.getTextContent();
+
+                Singer singerX = new Singer(songSingerName, Integer.parseInt(songSingerAge));
+                Song song = new Song(songTitle, singerX, Integer.parseInt(songYear), songGenre);
+                result.add(song);
+            }
+
+
+//            NodeList nodes = (NodeList) expressionSingerIdRefSongs.evaluate(doc, XPathConstants.NODESET);
+//            System.out.println("nodes = " + nodes.item(0));
+//
+//            for (int i = 0; i < nodes.getLength(); i++) {
+//                result.add(nodes.item(i).getNodeValue());
+//            }
+
+        } catch (XPathExpressionException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
     public static List<String> getAllGenres(){
         List<String> result = new ArrayList<>();
         try {

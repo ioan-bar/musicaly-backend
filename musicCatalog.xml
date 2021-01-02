@@ -72,8 +72,8 @@
         </tns:singer>
     </tns:singers>
     <tns:genres>
-        <tns:genre id="country">Country</tns:genre>
         <tns:genre id="pop">Pop</tns:genre>
+        <tns:genre id="country">Country</tns:genre>
         <tns:genre id="hip-hop">Hip-Hop</tns:genre>
         <tns:genre id="latin">Latin music</tns:genre>
     </tns:genres>

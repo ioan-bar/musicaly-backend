@@ -1,5 +1,6 @@
 package ro.playshot.musicaly.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,12 @@ class CatalogController {
     public void deleteEmployee(@PathParam("title") String title) {
         System.out.println("title = " + title);
         repository.deleteSongsByName(title);
+    }
+
+    @GetMapping("/song")
+    public  List<Song> getAllSongsOfSinger(@PathParam("singer") String singer) {
+        System.out.println("singer = " + repository.getAllSongsOfSinger(singer));
+       return repository.getAllSongsOfSinger(singer);
     }
 
     @PostMapping("/song")
