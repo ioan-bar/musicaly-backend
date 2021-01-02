@@ -1,14 +1,12 @@
 package ro.playshot.musicaly.controller;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ro.playshot.musicaly.model.Song;
 import ro.playshot.musicaly.repository.MusicalyDatabase;
 
 import javax.websocket.server.PathParam;
+import java.util.List;
 
 @RestController
 class CatalogController {
@@ -38,9 +36,9 @@ class CatalogController {
     }
 
     @GetMapping("/song")
-    public  List<Song> getAllSongsOfSinger(@PathParam("singer") String singer) {
+    public List<Song> getAllSongsOfSinger(@PathParam("singer") String singer) {
         System.out.println("singer = " + repository.getAllSongsOfSinger(singer));
-       return repository.getAllSongsOfSinger(singer);
+        return repository.getAllSongsOfSinger(singer);
     }
 
     @PostMapping("/song")

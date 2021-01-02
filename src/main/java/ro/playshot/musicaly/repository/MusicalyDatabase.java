@@ -42,4 +42,7 @@ public class MusicalyDatabase {
         return XPathParser.getAllSongsOfSinger(singer);
     }
 
+    public List<String> getSingers() {
+        return XPathParser.getAllSingers();
+    }
 }

@@ -1,25 +1,5 @@
 package ro.playshot.musicaly.repository;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -28,11 +8,26 @@ import ro.playshot.musicaly.NamespaceResolver;
 import ro.playshot.musicaly.model.Singer;
 import ro.playshot.musicaly.model.Song;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class XPathParser {
 
+    private static final String FILE_NAME = "musicCatalog.xml";
     private static Document doc;
     private static XPath xpath;
-    private static final String FILE_NAME= "musicCatalog.xml";
 
     public static void startConfiguration() {
         System.out.println("Start configuration...");
@@ -54,7 +49,7 @@ public class XPathParser {
         System.out.println("Configuration done.");
     }
 
-//    public static void main(String[] args) {
+    //    public static void main(String[] args) {
 //        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 //        factory.setNamespaceAware(true);
 //        DocumentBuilder builder;
@@ -154,11 +149,12 @@ public class XPathParser {
 //        }
 //
 //    }
-public static void main(String[] args) {
+    public static void main(String[] args) {
         XPathParser.startConfiguration();
-    XPathParser.removeSong("Midnight sky");
-}
-    public static void removeSong(String songName)  {
+        XPathParser.removeSong("Midnight sky");
+    }
+
+    public static void removeSong(String songName) {
         try {
             XPathExpression expression = xpath.compile("/tns:catalog/tns:songs/tns:song[tns:title='" + songName + "']");
 
@@ -403,7 +399,7 @@ public static void main(String[] args) {
         List<String> list = new ArrayList<>();
         try {
             //create XPathExpression object
-            XPathExpression expr =                    xpath.compile("/catalog/genres/genre/text()");
+            XPathExpression expr = xpath.compile("/catalog/genres/genre/text()");
             //evaluate expression result on XML document
             NodeList nodes = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
             for (int i = 0; i < nodes.getLength(); i++)
@@ -449,11 +445,42 @@ public static void main(String[] args) {
         return result;
     }
 
-    public static List<String> getAllSongsOfGenre(String genre){
+    public static List<String> getAllSingers() {
+        List<String> result = new ArrayList<>();
+        try {
+            XPathExpression expression = xpath.compile("//tns:singers/tns:singer/tns:name");
+            NodeList nodes = (NodeList) expression.evaluate(doc, XPathConstants.NODESET);
+
+            for (int i = 0; i < nodes.getLength(); i++) {
+                result.add(nodes.item(i).getTextContent());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
+//    public static List<String> getAllSingers() {
+//        List<String> result = new ArrayList<>();
+//        try {
+//            XPathExpression expression = xpath.compile("//tns:singer/tns:name");
+//            //evaluate expression result on XML document
+//            NodeList nodes = (NodeList) expression.evaluate(doc, XPathConstants.NODESET);
+//            for (int i = 0; i < nodes.getLength(); i++) {
+//                result.add(nodes.item(i).getTextContent());
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return result;
+//    }
+
+
+    public static List<String> getAllSongsOfGenre(String genre) {
         List<String> result = new ArrayList<>();
 
         try {
-            XPathExpression expressionGenreId = xpath.compile("//tns:genres/tns:genre[text()='"+genre+"']/@id");
+            XPathExpression expressionGenreId = xpath.compile("//tns:genres/tns:genre[text()='" + genre + "']/@id");
             System.out.println("genre = " + genre);
             String genreId = (String) expressionGenreId.evaluate(doc, XPathConstants.STRING);
             System.out.println("genreId = " + genreId);
@@ -472,11 +499,11 @@ public static void main(String[] args) {
         return result;
     }
 
-    public static List<Song> getAllSongsOfSinger(String singer){
+    public static List<Song> getAllSongsOfSinger(String singer) {
         List<Song> result = new ArrayList<>();
 
         try {
-            XPathExpression expressionSingerId = xpath.compile("//tns:singers/tns:singer[tns:name='"+singer+"']/@id");
+            XPathExpression expressionSingerId = xpath.compile("//tns:singers/tns:singer[tns:name='" + singer + "']/@id");
             String singerId = (String) expressionSingerId.evaluate(doc, XPathConstants.STRING);
             XPathExpression expressionSingerIdRefSongs = xpath.compile("//tns:songs/tns:song[tns:singer[@idref='" + singerId + "']]");
 
@@ -522,7 +549,7 @@ public static void main(String[] args) {
         return result;
     }
 
-    public static List<String> getAllGenres(){
+    public static List<String> getAllGenres() {
         List<String> result = new ArrayList<>();
         try {
             XPathExpression expression = xpath.compile("//tns:genres/tns:genre/text()");
@@ -583,7 +610,7 @@ public static void main(String[] args) {
         songSinger.setAttribute("idref", song.getSinger().getName());
 
         Element songYear = doc.createElement("tns:year");
-        songYear.setTextContent(song.getYear()+"");
+        songYear.setTextContent(song.getYear() + "");
 
         Element songGenre = doc.createElement("tns:genre");
         songGenre.setAttribute("idref", song.getGenre());
@@ -612,7 +639,7 @@ public static void main(String[] args) {
         singerName.setTextContent(song.getSinger().getName());
 
         Element singerAge = doc.createElement("tns:age");
-        singerAge.setTextContent(song.getSinger().getAge()+"");
+        singerAge.setTextContent(song.getSinger().getAge() + "");
 
         newSinger.appendChild(singerName);
         newSinger.appendChild(singerAge);

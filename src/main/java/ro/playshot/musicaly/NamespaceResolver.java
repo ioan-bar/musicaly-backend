@@ -19,6 +19,7 @@ public class NamespaceResolver implements NamespaceContext {
         if (prefix.equals(XMLConstants.DEFAULT_NS_PREFIX)) {
             return sourceDocument.lookupNamespaceURI(null);
         } else {
+            System.out.println("doc => " + sourceDocument);
             return sourceDocument.lookupNamespaceURI(prefix);
         }
     }
