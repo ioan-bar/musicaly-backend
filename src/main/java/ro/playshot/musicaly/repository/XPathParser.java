@@ -111,14 +111,14 @@ public class XPathParser {
     public static List<String> getAllSingers() {
         List<String> result = new ArrayList<>();
         try {
-            XPathExpression expression = xpath.compile("//tns:singers/tns:singer/tns:name");
+            XPathExpression expression = xpath.compile("//tns:singers/tns:singer/tns:name/text()");
             NodeList nodes = (NodeList) expression.evaluate(doc, XPathConstants.NODESET);
 
             for (int i = 0; i < nodes.getLength(); i++) {
-                result.add(nodes.item(i).getTextContent());
+                result.add(nodes.item(i).getNodeValue());
             }
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         return result;
     }
