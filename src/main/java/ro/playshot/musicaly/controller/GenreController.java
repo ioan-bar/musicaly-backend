@@ -2,9 +2,7 @@ package ro.playshot.musicaly.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.RestController;
-import ro.playshot.musicaly.model.Song;
 import ro.playshot.musicaly.repository.MusicalyDatabase;
 
 import javax.websocket.server.PathParam;

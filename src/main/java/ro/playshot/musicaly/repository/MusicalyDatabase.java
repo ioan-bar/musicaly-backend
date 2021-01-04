@@ -3,20 +3,10 @@ package ro.playshot.musicaly.repository;
 import org.springframework.stereotype.Component;
 import ro.playshot.musicaly.model.Song;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class MusicalyDatabase {
-
-
-    public List<String> getCatalog() {
-        List<String> result = new ArrayList<>();
-        result.add("Love Again");
-        result.add("Melodie2");
-        result.add("Melodie3");
-        return result;
-    }
 
     public List<Song> getSongs() {
         return XPathParser.getAllSongs();
@@ -27,7 +17,6 @@ public class MusicalyDatabase {
     }
 
     public void addSong(Song song) {
-        System.out.println("song = " + song);
         XPathParser.addSong(song);
     }
 
@@ -38,6 +27,7 @@ public class MusicalyDatabase {
     public List<String> getAllSongsOfGenre(String genre) {
         return XPathParser.getAllSongsOfGenre(genre);
     }
+
     public List<Song> getAllSongsOfSinger(String singer) {
         return XPathParser.getAllSongsOfSinger(singer);
     }

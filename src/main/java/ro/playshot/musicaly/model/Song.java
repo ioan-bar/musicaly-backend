@@ -52,6 +52,6 @@ public class Song {
                 ", singer=" + singer +
                 ", year=" + year +
                 ", genre='" + genre + '\'' +
-                '}'+ System.lineSeparator();
+                '}' + System.lineSeparator();
     }
 }
